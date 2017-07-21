@@ -1,9 +1,16 @@
 <h2>Course</h2>
 
 {{title}}
-
+<div *ngIf="showAddress">{{address.city}} {{address.state}} {{address.street}}</div>
 <ul>
     <li  *ngFor= "let course of courses">
         {{course}}
     </li>
 </ul>
+
+<form (submit)="addCourse(course.value)">
+    <label for="">Add Course</label>><input type="text"  #course /> 
+
+</form>
+
+<button (click)="toggleAddress()">{{ showAddress ? 'Show':'Hide'}}</button>
