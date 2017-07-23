@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable }     from 'rxjs/Observable';
 import { FormsModule, FormBuilder, FormControl,FormGroup } from '@angular/forms';
+// import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { getObjectKeys } from '../../shared/common';
@@ -22,6 +23,7 @@ export class PetFormComponent implements OnInit {
   petForm: FormGroup;
   formFields: Array<string>;
   observable : Observable<any>;
+  closeResult: string;
   view: string;
   @Input()
   pet: Pet;
@@ -54,7 +56,13 @@ export class PetFormComponent implements OnInit {
   formError() {
     // return this.formErrorsService.formError(this.petForm)
   }
-
+  open(content:any) {
+      // this.modalService.open(content).result.then((result) => {
+      //   this.closeResult = `Closed `;
+      // }, (reason) => {
+      //   this.closeResult = `Dismissed `;
+      // });
+  }
   savePet() {
     if (this.petForm.dirty && this.petForm.valid) {
       let form = this.petForm.value;
