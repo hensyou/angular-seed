@@ -8,6 +8,9 @@ import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 // Load i18n providers
 // import { TranslationProviders } from './i18n.providers';
 
+// NgBootstrap
+//
+
 // The app module
 import { AppModule } from './app.module';
 

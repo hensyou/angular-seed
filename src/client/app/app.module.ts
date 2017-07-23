@@ -9,6 +9,7 @@ import { AboutModule } from './about/about.module';
 import { HomeModule } from './home/home.module';
 import { SharedModule } from './shared/shared.module';
 import { CoursesModule } from './courses/courses.module';
+import { PetStoreModule } from './petstore/petstore.module';
 
 
 @NgModule({

@@ -1,0 +1,26 @@
+<pet-create (petsChanged)="petsChanged($event)"></pet-create>
+<table class="table table-bordered table-condensed">
+	<thead>
+		<tr>
+			<th>ID</th>
+			<td>Name</td>
+			<td>Price</td>
+			<td>Quantity</td>
+			<td>Description</td>
+		</tr>
+	</thead>
+
+	<tbody>
+		<tr *ngFor="let pet of pets">
+			<td>{{pet.id}}</td>
+			<td>{{pet.name}}</td>
+			<td>{{pet.price}}</td>
+			<td>{{pet.quantity}}</td>
+			<td>{{pet.description}}</td>
+			<td><pet-details [pet]="pet"></pet-details>
+				<pet-update [pet]="pet" (petsChanged)="petsChanged($event)">></pet-update>
+			</td>
+		</tr>
+	</tbody>
+	<!-- <div>{{pets.size}}</div> -->
+</table>

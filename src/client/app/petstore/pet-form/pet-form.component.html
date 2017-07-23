@@ -1,0 +1,43 @@
+<button *ngIf="pet != null" type="button" class="btn btn-info btn-sm" data-toggle="modal" attr.data-target="#update_product_{{pet.id}}">
+<i class="glyphicon glyphicon-edit"></i> Update Product</button>
+
+
+<button *ngIf="pet == null" type="button" class="btn btn-danger btn-sm pull-right" data-toggle="modal" data-target="#create_product">
+<i class="glyphicon glyphicon-plus"></i> Create Product</button>
+
+<div class="modal fade" id="{{view}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Product Form</h4>
+      </div>
+      
+      <form [formGroup]="petForm"
+            class="form-horizontal">
+          
+          <div class="modal-body">
+              <div *ngFor="let field of formFields; let i = index"
+                  class='form-group'
+                  [class.has_error]="!petForm.get(field).valid && petForm.get(field).touched"
+              >
+                  
+                  <label attr.for="{{field}}" class="col-sm-2 control-label">{{field|uppercase}}</label>
+                  <div class="col-xs-6">
+                      <input
+                        class="form-control"
+                        id="{{field}}Input"
+                        placeholder="Enter {{field|uppercase}}"
+                        [formControl]="petForm.controls[field]">
+                  </div>
+                  <div *ngIf="formError() != null && formError()[1] == field">{{formError()[0][field]}}</div>
+              </div>
+          </div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              <button type="button" (click)='savePet()' data-dismiss="modal" class="btn btn-primary">Save</button>
+          </div>
+      </form>
+    </div>
+  </div>
+</div>
