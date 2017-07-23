@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { PetsComponent } from './petstore.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { PetListComponent } from './pet-list/pet-list.component';
 import { PetCreateComponent } from './pet-create/pet-create.component';
@@ -14,7 +13,7 @@ import { PetstoreRoutingModule } from './petstore-routing.module';
 
 @NgModule({
   imports: [CommonModule,SharedModule,PetstoreRoutingModule,ReactiveFormsModule],
-  declarations: [PetsComponent,PetListComponent,PetCreateComponent,PetDetailComponent,PetUpdateComponent,PetFormComponent],
-  exports: [PetsComponent]
+  declarations: [PetListComponent,PetCreateComponent,PetDetailComponent,PetUpdateComponent,PetFormComponent],
+  exports: [PetListComponent]
 })
 export class PetStoreModule { }

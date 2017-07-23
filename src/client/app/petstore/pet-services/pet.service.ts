@@ -13,7 +13,9 @@ export class PetService {
   pets: Pet[] = [];
   pet: Pet;
 
-  private petUrl = 'https://petstore-inventory.cfapps.io/v1/pets';  // URL to web api
+  //private petUrl = 'https://petstore-inventory.cfapps.io/v1/pets';  // URL to web api
+
+  private petUrl='http://localhost:8091/v1/pets';
 
   constructor(private http: Http) {}
 

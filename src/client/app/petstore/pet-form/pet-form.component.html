@@ -1,9 +1,9 @@
 <button *ngIf="pet != null" type="button" class="btn btn-info btn-sm" data-toggle="modal" attr.data-target="#update_product_{{pet.id}}">
-<i class="glyphicon glyphicon-edit"></i> Update Product</button>
+<i class="glyphicon glyphicon-edit"></i> Update Pet Inventory</button>
 
 
 <button *ngIf="pet == null" type="button" class="btn btn-danger btn-sm pull-right" data-toggle="modal" data-target="#create_product">
-<i class="glyphicon glyphicon-plus"></i> Create Product</button>
+<i class="glyphicon glyphicon-plus"></i> Add Pet</button>
 
 <div class="modal fade" id="{{view}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
