@@ -12,11 +12,11 @@
 
 	<tbody>
 		<tr *ngFor="let pet of pets">
-			<td>{{pet.id}}</td>
-			<td>{{pet.name}}</td>
-			<td>{{pet.price}}</td>
-			<td>{{pet.quantity}}</td>
-			<td>{{pet.description}}</td>
+			<td>{{ pet.id }}</td>
+			<td>{{ pet.name }}</td>
+			<td>{{ pet.price }}</td>
+			<td>{{ pet.quantity }}</td>
+			<td>{{ pet.description }}</td>
 			<td><pet-details [pet]="pet"></pet-details>
 				<pet-update [pet]="pet" (petsChanged)="petsChanged($event)">></pet-update>
 			</td>

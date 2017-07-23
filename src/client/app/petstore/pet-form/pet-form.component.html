@@ -22,7 +22,7 @@
                   [class.has_error]="!petForm.get(field).valid && petForm.get(field).touched"
               >
                   
-                  <label attr.for="{{field}}" class="col-sm-2 control-label">{{field|uppercase}}</label>
+                  <label attr.for="{{ field }}" class="col-sm-2 control-label">{{ field|uppercase }}</label>
                   <div class="col-xs-6">
                       <input
                         class="form-control"
@@ -30,7 +30,7 @@
                         placeholder="Enter {{field|uppercase}}"
                         [formControl]="petForm.controls[field]">
                   </div>
-                  <div *ngIf="formError() != null && formError()[1] == field">{{formError()[0][field]}}</div>
+                  <div *ngIf="formError() != null && formError()[1] == field">{{ formError()[0][field] }}</div>
               </div>
           </div>
           <div class="modal-footer">

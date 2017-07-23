@@ -16,7 +16,7 @@ export class PetUpdateComponent {
 
   @Output() petsChanged = new EventEmitter();
 
-  updatePets(event:any) {
+  updatePet(event:any) {
     this.petsChanged.emit(null);
   }
 
