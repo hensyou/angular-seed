@@ -14,11 +14,11 @@ export class PetUpdateComponent {
   @Input()
   pet: Pet;
 
-  @Output() petsChanged = new EventEmitter();
+  @Output() updatePetsEmitter: EventEmitter<string>=new EventEmitter<string>();
 
   updatePet(event:any) {
     console.log('updating pet..');
-    this.petsChanged.emit(null);
+    this.updatePetsEmitter.emit('get all pets');
   }
 
 }

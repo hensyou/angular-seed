@@ -29,12 +29,12 @@
                         placeholder="Enter {{field|uppercase}}"
                         [formControl]="petForm.controls[field]">
                   </div>
-                  <div *ngIf="formError() != null && formError()[1] == field">{{ formError()[0][field] }}</div>
+                  <div *ngIf=" formHasError(field)!= null ">{{ formHasError(field) }}</div>
               </div>
           </div>
           <div class="modal-footer">
               <button type="button" class="btn btn-default" (click)="c('Close click')">Close</button>
-              <button type="button" (click)='savePet()' data-dismiss="modal" class="btn btn-primary">Save</button>
+              <button type="button" (click)='savePet();' class="btn btn-primary" [attr.disabled] = "!petForm.valid ? '' : null">Save</button>
           </div>
       </form>
    

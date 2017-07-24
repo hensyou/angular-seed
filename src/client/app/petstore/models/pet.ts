@@ -1,4 +1,5 @@
 export class Pet {
+  [key:string]: any;
   id: string;
   name: string;
   price: number;

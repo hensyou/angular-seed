@@ -13,9 +13,9 @@ export class PetService {
   pets: Pet[] = [];
   pet: Pet;
 
-  //private petUrl = 'https://petstore-inventory.cfapps.io/v1/pets';  // URL to web api
+  private petUrl = 'https://petstore-inventory.cfapps.io/v1/pets';  // URL to web api
 
-  private petUrl='http://localhost:8091/v1/pets';
+  //private petUrl='http://localhost:8091/v1/pets';
 
   constructor(private http: Http) {}
 
@@ -56,10 +56,11 @@ export class PetService {
       .catch(this.handleError);
   }
 
-  deletePetById(id: string): PetService {
-    this.pets = this.pets
-      .filter(pet => pet.id !== id);
-    return this;
+  deletePetById(id: string): Observable<any> {
+    let url = `${this.petUrl}/${id}`;
+
+    return this.http.delete(url)
+        .catch(this.handleError);
   }
 
   private extractData(res: Response) {

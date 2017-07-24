@@ -1,4 +1,4 @@
-<pet-create (petsChanged)="petsChanged($event)"></pet-create>
+<pet-create (updatePetsEmitter)="petsChanged($event)"></pet-create>
 <table class="table table-bordered table-condensed">
 	<thead>
 		<tr>
@@ -19,7 +19,8 @@
 			<td>{{ pet.description }}</td>
 			<td>
 				<pet-details [pet]="pet"></pet-details>
-				<pet-update [pet]="pet" (petsChanged)="petsChanged($event)"></pet-update>
+				<pet-update [pet]="pet" (updatePetsEmitter)="petsChanged($event)"></pet-update>
+				<pet-delete [pet]="pet" (updatePetsEmitter)="petsChanged($event)"></pet-delete>
 			</td>
 		</tr>
 	</tbody>

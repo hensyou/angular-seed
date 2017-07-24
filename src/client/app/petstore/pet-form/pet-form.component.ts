@@ -28,7 +28,7 @@ export class PetFormComponent implements OnInit {
   view: string;
   @Input()
   pet: Pet;
-  @Output() updatePets = new EventEmitter();
+  @Output() updatePetsEmitter: EventEmitter<string>=new EventEmitter<string>();
 
   constructor(
     private fb: FormBuilder,
@@ -50,7 +50,7 @@ export class PetFormComponent implements OnInit {
         if (control) {
           console.log('control ' + control + ', populating form');
             //(<FormControl>control).setValue(this.pet[field], true);
-            control.setValue(this.pet[field], true);
+            control.setValue(this.pet[field] , true);
         }
       }
     }else {
@@ -58,8 +58,15 @@ export class PetFormComponent implements OnInit {
     }
   }
 
-  formError() {
-    return this.formErrorsService.formError(this.petForm);
+  formHasError(field:string) {
+    let errorsMap=this.formErrorsService.getErrors(this.petForm);
+
+    for (let errorItem of errorsMap){
+      if (errorItem[field]!== undefined) {
+        return errorItem[field];
+      }
+    }
+    return null;
   }
   open(content:any) {
       this.modalService.open(content).result.then((result) => {
@@ -87,10 +94,11 @@ export class PetFormComponent implements OnInit {
         this.observable = this.petService.addPet(formPet);
       }
       this.observable.subscribe((data) => {
-        // notify parent component
-        this.updatePets.emit(null);
+        console.log('observable.subscribe notify parent component');
+        this.updatePetsEmitter.emit('getall');
       });
       console.log('done');
+      //this.petsChanged.emit(null);
     } else {
       console.log('this.petForm.dirty && this.petForm.valid' + this.petForm.dirty +'&&'+ this.petForm.valid);
     }

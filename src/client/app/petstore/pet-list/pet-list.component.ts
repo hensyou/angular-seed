@@ -20,6 +20,7 @@ export class PetListComponent {
     }
 
     petsChanged(event:any) {
+        console.log('captured petsChanged event, retrieving all pets');
         this.getPets();
     }
 

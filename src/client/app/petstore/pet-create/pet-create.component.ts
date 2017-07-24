@@ -9,10 +9,10 @@ import { PetFormComponent } from '../pet-form/pet-form.component';
 })
 
 export class PetCreateComponent {
-    @Output() petsChanged = new EventEmitter();
+    @Output() updatePetsEmitter: EventEmitter<string>=new EventEmitter();
 
     updatePets(event:any) {
-          this.petsChanged.emit(null);
+          this.updatePetsEmitter.emit('get all pets');
     }
 
 }
