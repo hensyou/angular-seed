@@ -1,16 +1,15 @@
-<button *ngIf="pet != null" type="button" class="btn btn-info btn-sm" data-toggle="modal" attr.data-target="#update_product_{{pet.id}}">
-<i class="glyphicon glyphicon-edit"></i> Update Pet Inventory</button>
+<button *ngIf="pet != null" type="button" class="btn btn-info btn-sm" (click)="open(content)" attr.data-target="#update_product_{{pet.id}}">
+<i class="glyphicon glyphicon-edit"></i> Update</button>
 
 
 <button *ngIf="pet == null" type="button" class="btn btn-danger btn-sm pull-right"  (click)="open(content)">
 <i class="glyphicon glyphicon-plus"></i> Add Pet</button>
 
 <ng-template #content let-c="close" let-d="dismiss">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
+  
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Product Form</h4>
+        <button type="button" class="close" (click)="c('Close click')" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Pet Editing Form</h4>
       </div>
       
       <form [formGroup]="petForm"
@@ -19,7 +18,7 @@
           <div class="modal-body">
               <div *ngFor="let field of formFields; let i = index"
                   class='form-group'
-                  [class.has_error]="!petForm.get(field).valid && petForm.get(field).touched"
+                  [class.has-danger]="!petForm.get(field).valid && petForm.get(field).touched"
               >
                   
                   <label attr.for="{{ field }}" class="col-sm-2 control-label">{{ field|uppercase }}</label>
@@ -34,10 +33,9 @@
               </div>
           </div>
           <div class="modal-footer">
-              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-default" (click)="c('Close click')">Close</button>
               <button type="button" (click)='savePet()' data-dismiss="modal" class="btn btn-primary">Save</button>
           </div>
       </form>
-    </div>
-  </div>
+   
 </ng-template>

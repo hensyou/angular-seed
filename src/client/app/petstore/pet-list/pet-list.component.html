@@ -17,8 +17,9 @@
 			<td>{{ pet.price }}</td>
 			<td>{{ pet.quantity }}</td>
 			<td>{{ pet.description }}</td>
-			<td><pet-details [pet]="pet"></pet-details>
-				<pet-update [pet]="pet" (petsChanged)="petsChanged($event)">></pet-update>
+			<td>
+				<pet-details [pet]="pet"></pet-details>
+				<pet-update [pet]="pet" (petsChanged)="petsChanged($event)"></pet-update>
 			</td>
 		</tr>
 	</tbody>

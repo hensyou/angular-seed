@@ -9,13 +9,14 @@ import { getObjectKeys } from '../../shared/common';
 import { Pet } from '../models/pet';
 import { petForm } from './pet-form';
 import { PetService } from '../pet-services/pet.service';
+import { CheckFormErrors } from '../../shared/form-error.service';
 
 
 @Component({
   selector: 'pet-form',
   moduleId: module.id,
   templateUrl: 'pet-form.component.html',
-  providers:[PetService]
+  providers:[PetService, CheckFormErrors ]
 })
 
 export class PetFormComponent implements OnInit {
@@ -32,9 +33,10 @@ export class PetFormComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private petService: PetService,
-    private router: Router,private modalService:NgbModal
+    private router: Router,
+    private modalService:NgbModal,
+    private formErrorsService: CheckFormErrors
     ) {
-
     this.petForm = this.fb.group(petForm());
     this.formFields = getObjectKeys(this.petForm.controls);
   }
@@ -46,7 +48,9 @@ export class PetFormComponent implements OnInit {
       for (let field of getObjectKeys(this.pet)){
         let control = this.petForm.controls[field];
         if (control) {
-            // (<FormControl>control).setValue(this.pet[field], true);
+          console.log('control ' + control + ', populating form');
+            //(<FormControl>control).setValue(this.pet[field], true);
+            control.setValue(this.pet[field], true);
         }
       }
     }else {
@@ -55,18 +59,19 @@ export class PetFormComponent implements OnInit {
   }
 
   formError() {
-    // return this.formErrorsService.formError(this.petForm)
+    return this.formErrorsService.formError(this.petForm);
   }
   open(content:any) {
       this.modalService.open(content).result.then((result) => {
-        console.log(result);
         this.closeResult = `Closed `;
       }, (reason) => {
         this.closeResult = `Dismissed `;
       });
   }
   savePet() {
+    console.log('validating form.. ');
     if (this.petForm.dirty && this.petForm.valid) {
+      console.log('valid form, trying to save');
       let form = this.petForm.value;
       let formPet = new Pet({
         id: form.id,
@@ -86,6 +91,8 @@ export class PetFormComponent implements OnInit {
         this.updatePets.emit(null);
       });
       console.log('done');
+    } else {
+      console.log('this.petForm.dirty && this.petForm.valid' + this.petForm.dirty +'&&'+ this.petForm.valid);
     }
   }
 
