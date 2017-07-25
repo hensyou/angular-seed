@@ -22,14 +22,14 @@ export class HomeComponent implements OnInit {
    *
    * @param {NameListService} nameListService - The injected NameListService.
    */
-  constructor() {}
+  constructor() {
+    //
+  }
 
   /**
    * Get the names OnInit
    */
   ngOnInit() {
+    //
   }
-
-  
-
 }

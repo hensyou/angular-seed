@@ -10,11 +10,12 @@ import { HomeModule } from './home/home.module';
 import { SharedModule } from './shared/shared.module';
 import { CoursesModule } from './courses/courses.module';
 import { PetStoreModule } from './petstore/petstore.module';
+import { LoginModule } from './login/login.module';
 
 
 @NgModule({
   imports: [BrowserModule, HttpModule, AppRoutingModule, AboutModule, HomeModule, SharedModule.forRoot()
-    ,NgbModule.forRoot()
+    ,NgbModule.forRoot(),LoginModule
   ],
   declarations: [AppComponent],
   providers: [{
