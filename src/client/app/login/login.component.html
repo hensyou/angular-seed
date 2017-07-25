@@ -2,23 +2,26 @@
     <h2>Login</h2>
 
     <div class="alert alert-info">
-        Username: admin<br/>
-        Password: admin
+       
+        <ul>
+            <li>(Role as admin) Username: admin<br/>Password: password</li>
+            <li>(Role as user)  Username: user<br/>Password: password</li>
+            <li>(Role as user)  Username: disabled<br/>Password: password</li>
+        </ul>
     </div>
-
-    <form name="form" (ngSubmit)="f.form.valid && login()" #f="ngForm" novalidate>
-        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !username.valid }">
+    <form name="form" (ngSubmit)="loginForm.valid && login()" [formGroup]="loginForm" novalidate>
+        <div class="form-group" [class.has-danger]="loginForm.submitted && !username.valid ">
             <label for="username">Username</label>
-            <input type="text" class="form-control" name="username" [(ngModel)]="model.username" #username="ngModel" required />
-            <span *ngIf="f.submitted && !username.valid" class="help-block">Username is required</span>
+            <input type="text" class="form-control" name="username" formControlName="username"  required />
+            <span *ngIf="loginForm.submitted && !username.valid" class="help-block">Username is required</span>
         </div>
-        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
+        <div class="form-group" [class.has-danger]=" loginForm.submitted && !password.valid ">
             <label for="password">Password&nbsp;</label>
-            <input type="password" class="form-control" name="password" [(ngModel)]="model.password" #password="ngModel" required />
-            <span *ngIf="f.submitted && !password.valid" class="help-block">Password is required</span>
+            <input type="password" class="form-control" name="password" formControlName="password" required />
+            <span *ngIf="loginForm.submitted && !password.valid" class="help-block">Password is required</span>
         </div>
         <div class="form-group">
-            <button [disabled]="loading" class="btn btn-primary">Login</button>
+            <button type="submit" [attr.disabled] = "!loginForm.valid ? '' : null" class="btn btn-primary">Login</button>
             <img *ngIf="loading" src="" />
         </div>
         <div *ngIf="error" class="alert alert-error">{{error}}</div>

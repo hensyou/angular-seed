@@ -15,6 +15,6 @@ import { PetstoreRoutingModule } from './petstore-routing.module';
 @NgModule({
   imports: [CommonModule,SharedModule,PetstoreRoutingModule,ReactiveFormsModule],
   declarations: [PetListComponent,PetCreateComponent,PetDetailComponent,PetUpdateComponent,PetDeleteComponent,PetFormComponent],
-  exports: [PetListComponent]
+  exports: [PetListComponent],
 })
 export class PetStoreModule { }

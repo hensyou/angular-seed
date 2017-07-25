@@ -1,22 +1,26 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-
+import { FormsModule, FormBuilder, FormControl,FormGroup } from '@angular/forms';
 import { AuthenticationService } from './login.service';
+import { loginForm } from './login-form';
 
 @Component({
     moduleId: module.id,
     templateUrl: 'login.component.html',
-    styleUrls: ['login.component.css']
+    providers:[ AuthenticationService ]
 })
 
 export class LoginComponent implements OnInit {
-    model: any = {};
     loading = false;
     error = '';
+    loginForm: FormGroup;
 
     constructor(
         private router: Router,
-        private authenticationService: AuthenticationService) { }
+        private fb: FormBuilder,
+        private authenticationService: AuthenticationService) {
+            this.loginForm=this.fb.group(loginForm());
+        }
 
     ngOnInit() {
         // reset login status
@@ -25,11 +29,11 @@ export class LoginComponent implements OnInit {
 
     login() {
         this.loading = true;
-        this.authenticationService.login(this.model.username, this.model.password)
+        this.authenticationService.login(this.loginForm.value.username, this.loginForm.value.password)
             .subscribe(result => {
                 if (result === true) {
                     // login successful
-                    this.router.navigate(['home']);
+                    this.router.navigate(['pet-store']);
                 } else {
                     // login failed
                     this.error = 'Username or password is incorrect';

@@ -2,7 +2,7 @@ import 'rxjs/Rx';
 import { Injectable } from '@angular/core';
 import { Headers, Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
-
+import { AuthenticationService } from '../../login/login.service';
 import { Pet } from '../models/pet';
 
 
@@ -13,16 +13,16 @@ export class PetService {
   pets: Pet[] = [];
   pet: Pet;
 
-  private petUrl = 'https://petstore-inventory.cfapps.io/v1/pets';  // URL to web api
+  //private petUrl = 'https://petstore-inventory.cfapps.io/v1/pets';  // URL to web api
 
-  //private petUrl='http://localhost:8091/v1/pets';
-
-  constructor(private http: Http) {}
+  private petUrl='http://localhost:8091/v1/pets';
+  private headers = new Headers({'Content-Type': 'application/json',
+                              'Authorization': 'Bearer ' + this.authenticationService.getToken()});
+  constructor(private http: Http,
+              private authenticationService: AuthenticationService) {}
 
   addPet(pet: Pet) {
-    let headers = new Headers({'Content-Type': 'application/json'});
-
-    return this.http.post(this.petUrl, JSON.stringify(pet), {headers: headers})
+    return this.http.post(this.petUrl, JSON.stringify(pet), {headers: this.headers})
         .map(this.extractData)
         .catch(this.handleError);
         //.subscribe();
@@ -34,7 +34,7 @@ export class PetService {
     let headers = new Headers({'Content-Type': 'application/json'});
     let url = `${this.petUrl}/${pet.id}`;
 
-    return this.http.put(url, JSON.stringify(formData), {headers:headers})
+    return this.http.put(url, JSON.stringify(formData), {headers:this.headers})
         .map(this.extractData)
         .catch(this.handleError);
         //.subscribe();
@@ -43,7 +43,7 @@ export class PetService {
   }
 
   getAllPets(): Observable<any> {
-    return this.http.get(this.petUrl)
+    return this.http.get(this.petUrl,{headers:this.headers})
       .map(this.extractData)
       .catch(this.handleError);
   }
@@ -51,7 +51,7 @@ export class PetService {
   getPetById(id: string): Observable<Pet> {
     let url = `${this.petUrl}/${id}`;
 
-    return this.http.get(url)
+    return this.http.get(url,{headers:this.headers})
       .map(this.extractData)
       .catch(this.handleError);
   }
@@ -59,7 +59,7 @@ export class PetService {
   deletePetById(id: string): Observable<any> {
     let url = `${this.petUrl}/${id}`;
 
-    return this.http.delete(url)
+    return this.http.delete(url,{headers:this.headers})
         .catch(this.handleError);
   }
 

@@ -1,6 +1,5 @@
 import { Validators } from '@angular/forms';
 
-import { Pet } from '../models/pet';
 import { getObjectValue } from '../../shared/common';
 import { NameValidator } from '../../shared/petstore-validator';
 

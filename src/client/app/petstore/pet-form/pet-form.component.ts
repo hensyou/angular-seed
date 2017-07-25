@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable }     from 'rxjs/Observable';
 import { FormsModule, FormBuilder, FormControl,FormGroup } from '@angular/forms';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal , NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { getObjectKeys } from '../../shared/common';
@@ -26,6 +26,7 @@ export class PetFormComponent implements OnInit {
   observable : Observable<any>;
   closeResult: string;
   view: string;
+  modalRef: NgbModalRef;
   @Input()
   pet: Pet;
   @Output() updatePetsEmitter: EventEmitter<string>=new EventEmitter<string>();
@@ -68,8 +69,9 @@ export class PetFormComponent implements OnInit {
     }
     return null;
   }
-  open(content:any) {
-      this.modalService.open(content).result.then((result) => {
+  open(content:Component) {
+      this.modalRef = this.modalService.open(content);
+      this.modalRef.result.then((result) => {
         this.closeResult = `Closed `;
       }, (reason) => {
         this.closeResult = `Dismissed `;
@@ -97,7 +99,7 @@ export class PetFormComponent implements OnInit {
         console.log('observable.subscribe notify parent component');
         this.updatePetsEmitter.emit('getall');
       });
-      console.log('done');
+      this.modalRef.close();
       //this.petsChanged.emit(null);
     } else {
       console.log('this.petForm.dirty && this.petForm.valid' + this.petForm.dirty +'&&'+ this.petForm.valid);
