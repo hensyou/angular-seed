@@ -5,10 +5,12 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
 import { JwtHelper } from 'angular2-jwt';
+import { Config } from '../shared/config/env.config';
 
 @Injectable()
 export class AuthenticationService {
-    private authUrl = 'https://petstore-inventory-secure.cfapps.io/auth';
+    
+    private authUrl = Config.API+'/auth';
     private headers = new Headers({'Content-Type': 'application/json'});
     private jwtHelper: JwtHelper = new JwtHelper();
     constructor(private http: Http) {

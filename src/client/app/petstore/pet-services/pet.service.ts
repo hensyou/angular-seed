@@ -4,7 +4,7 @@ import { Headers, Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { AuthenticationService } from '../../login/login.service';
 import { Pet } from '../models/pet';
-
+import { Config } from '../../shared/config/env.config';
 
 @Injectable()
 export class PetService {
@@ -13,7 +13,7 @@ export class PetService {
   pets: Pet[] = [];
   pet: Pet;
 
-  private petUrl = 'https://petstore-inventory-secure.cfapps.io/v1/pets';  // URL to web api
+  private petUrl = Config.API+'/v1/pets';  // URL to web api
 
   //private petUrl='http://localhost:8091/v1/pets';
   private headers = new Headers({'Content-Type': 'application/json',

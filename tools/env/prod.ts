@@ -1,7 +1,8 @@
 import { EnvConfig } from './env-config.interface';
 
 const ProdConfig: EnvConfig = {
-  ENV: 'PROD'
+  ENV: 'PROD',
+  API: 'https://petstore-inventory-secure.cfapps.io'
 };
 
 export = ProdConfig;
