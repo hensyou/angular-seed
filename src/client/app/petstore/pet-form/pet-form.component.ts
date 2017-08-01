@@ -9,6 +9,7 @@ import { getObjectKeys } from '../../shared/common';
 import { Pet } from '../models/pet';
 import { petForm } from './pet-form';
 import { PetService } from '../pet-services/pet.service';
+import { AuthenticationService } from '../../login/login.service';
 import { CheckFormErrors } from '../../shared/form-error.service';
 
 
@@ -36,7 +37,8 @@ export class PetFormComponent implements OnInit {
     private petService: PetService,
     private router: Router,
     private modalService:NgbModal,
-    private formErrorsService: CheckFormErrors
+    private formErrorsService: CheckFormErrors,
+    private authenticationService:AuthenticationService
     ) {
     this.petForm = this.fb.group(petForm());
     this.formFields = getObjectKeys(this.petForm.controls);

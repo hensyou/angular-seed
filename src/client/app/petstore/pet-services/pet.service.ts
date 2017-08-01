@@ -13,9 +13,9 @@ export class PetService {
   pets: Pet[] = [];
   pet: Pet;
 
-  //private petUrl = 'https://petstore-inventory.cfapps.io/v1/pets';  // URL to web api
+  private petUrl = 'https://petstore-inventory-secure.cfapps.io/v1/pets';  // URL to web api
 
-  private petUrl='http://localhost:8091/v1/pets';
+  //private petUrl='http://localhost:8091/v1/pets';
   private headers = new Headers({'Content-Type': 'application/json',
                               'Authorization': 'Bearer ' + this.authenticationService.getToken()});
   constructor(private http: Http,

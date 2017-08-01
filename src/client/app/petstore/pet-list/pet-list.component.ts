@@ -4,6 +4,7 @@ import { PetDetailComponent } from '../pet-detail/pet-detail.component';
 import { PetUpdateComponent } from '../pet-update/pet-update.component';
 import { PetCreateComponent } from '../pet-create/pet-create.component';
 import { PetService } from '../pet-services/pet.service';
+import { AuthenticationService } from '../../login/login.service';
 
 @Component({
     selector: 'pet-list',
@@ -15,7 +16,8 @@ import { PetService } from '../pet-services/pet.service';
 export class PetListComponent {
     public pets: any;
 
-    constructor(private petService: PetService) {
+    constructor(private petService: PetService,
+                private authenticationService:AuthenticationService) {
         this.getPets();
     }
 
@@ -30,5 +32,8 @@ export class PetListComponent {
             .subscribe(
                 response => this.pets = response
         );
+    }
+    showDelete() :boolean {
+        return this.authenticationService.getAuthorities().indexOf('ROLE_ADMIN')>-1;
     }
 }

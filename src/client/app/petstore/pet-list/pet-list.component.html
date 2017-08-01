@@ -20,7 +20,7 @@
 			<td>
 				<pet-details [pet]="pet"></pet-details>
 				<pet-update [pet]="pet" (updatePetsEmitter)="petsChanged($event)"></pet-update>
-				<pet-delete [pet]="pet" (updatePetsEmitter)="petsChanged($event)"></pet-delete>
+				<pet-delete [pet]="pet" *ngIf="showDelete()"  (updatePetsEmitter)="petsChanged($event)"></pet-delete>
 			</td>
 		</tr>
 	</tbody>

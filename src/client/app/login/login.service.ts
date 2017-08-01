@@ -4,12 +4,13 @@ import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
+import { JwtHelper } from 'angular2-jwt';
 
 @Injectable()
 export class AuthenticationService {
-    private authUrl = 'http://localhost:8091/auth';
+    private authUrl = 'https://petstore-inventory-secure.cfapps.io/auth';
     private headers = new Headers({'Content-Type': 'application/json'});
-
+    private jwtHelper: JwtHelper = new JwtHelper();
     constructor(private http: Http) {
     }
 
@@ -21,7 +22,9 @@ export class AuthenticationService {
                 if (token) {
                     // store username and jwt token in local storage to keep user logged in between page refreshes
                     localStorage.setItem('currentUser', JSON.stringify({ username: username, token: token }));
-
+                    console.log(this.jwtHelper.decodeToken(token),
+                                this.jwtHelper.getTokenExpirationDate(token),
+                                this.jwtHelper.isTokenExpired(token));
                     // return true to indicate successful login
                     return true;
                 } else {
@@ -31,12 +34,14 @@ export class AuthenticationService {
             }).catch((error:any) => Observable.throw(error.json().error || 'Server error'));
     }
 
-    getToken(): String {
+    getToken(): string {
       var currentUser = JSON.parse(localStorage.getItem('currentUser'));
       var token = currentUser && currentUser.token;
       return token ? token : '';
     }
-
+    getAuthorities(): Array<string> {
+        return this.jwtHelper.decodeToken(this.getToken())['authorities'].map((element:Authority) => { return element.authority;});
+    }
     logout(): void {
         // clear token remove user from local storage to log user out
         localStorage.removeItem('currentUser');
@@ -45,4 +50,8 @@ export class AuthenticationService {
         var token: String = this.getToken();
         return token && token.length > 0;
     }
+}
+
+interface Authority {
+    authority:string;
 }
